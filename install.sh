@@ -47,11 +47,9 @@ fi
 			printf "$green [!] Now wait until jdk-8 is installing ...$reset"
 			echo
 
-wget https://github.com/Hax4us/java/releases/download/v8/jdk8_aarch64.tar.gz
-
 echo
 printf "$green [!] Moving jdk into system ...$reset"
-mv jdk8_aarch64.tar.gz $PREFIX/share
+mv download/arch/jdk8_aarch64.tar.gz $PREFIX/share
 
 printf "$green [!] Extracting ...$reset"
 cd $PREFIX/share
@@ -65,11 +63,9 @@ mv bin/* $PREFIX/bin
 				printf "$green [!] Now wait until jdk-8 is installing ...$reset"
 			echo
 
-wget https://github.com/Hax4us/java/releases/download/v8-151/jdk8_arm.tar.gz
-
 echo
 printf "$green [!] Moving jdk into system ...$reset"
-mv jdk8_arm.tar.gz $PREFIX/share
+mv Download/arch/jdk8_arm.tar.gz $PREFIX/share
 echo
 printf "$green [!] Extracting ...$reset"
 cd $PREFIX/share
@@ -78,17 +74,16 @@ echo
 printf "$green [!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin
 rm -rf $PREFIX/share/bin
+rm -rf $HOME/java-for-termux/Download
 echo
 
 		elif [ $arch = "arm" ]; then
 			printf "$green [!] Now wait until jdk-8 is installing ...$reset"
 			echo
 
-wget https://github.com/Hax4us/java/releases/download/v8-151/jdk8_arm.tar.gz
-
 echo
 printf "$green [!] Moving jdk into system ...$reset"
-mv jdk8_arm.tar.gz $PREFIX/share
+mv Download/arch/jdk8_arm.tar.gz $PREFIX/share
 echo
 printf "$green [!] Extracting ...$rreset"
 cd $PREFIX/share
@@ -97,6 +92,7 @@ echo
 printf "$green [!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin
 rm -rf $PREFIX/share/bin
+rm -rf $HOME/java-for-termux/Download
 echo
 
 		else
