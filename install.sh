@@ -1,6 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
 echo $(clear)
-shopt -s expand_aliases
 #
 #COLORS
 		negro='\033[1;30m'
@@ -52,7 +51,7 @@ fi
 			sleep 1
 			echo
 
-wget https://www.mediafire.com/file/zxi35jmbyzc6yfj/jdk8_aarch64.tar.gz
+			echo $(wget https://www.mediafire.com/file/zxi35jmbyzc6yfj/jdk8_aarch64.tar.gz)
 sleep 1
 echo
 printf "$green [!] Moving jdk into system ...$reset"
@@ -74,7 +73,7 @@ echo
 			sleep 1
 			echo
 
-wget https://www.mediafire.com/file/3xo7qxqlrstuuod/jdk8_arm.tar.gz
+			echo $(wget https://www.mediafire.com/file/3xo7qxqlrstuuod/jdk8_arm.tar.gz)
 sleep 1
 echo
 printf "$green [!] Moving jdk into system ...$reset"
@@ -96,7 +95,7 @@ sleep 1
 			sleep 1
 			echo
 
-wget https://www.mediafire.com/file/3xo7qxqlrstuuod/jdk8_arm.tar.gz
+			echo $(wget https://www.mediafire.com/file/3xo7qxqlrstuuod/jdk8_arm.tar.gz)
 sleep 1
 echo
 printf "$green [!] Moving jdk into system ...$reset"
