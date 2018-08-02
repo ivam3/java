@@ -73,7 +73,7 @@ echo
 			sleep 1
 			echo
 
-			echo $(wget https://www.mediafire.com/file/3xo7qxqlrstuuod/jdk8_arm.tar.gz)
+			echo $(wget https://github.com/ivam3/java/releases/download/v8/jdk8_aarch64.tar.gz)
 sleep 1
 echo
 printf "$green [!] Moving jdk into system ...$reset"
@@ -95,7 +95,7 @@ sleep 1
 			sleep 1
 			echo
 
-			echo $(wget https://www.mediafire.com/file/3xo7qxqlrstuuod/jdk8_arm.tar.gz)
+			echo $(wget https://github.com/ivam3/java/releases/download/v8-151/jdk8_arm.tar.gz)
 sleep 1
 echo
 printf "$green [!] Moving jdk into system ...$reset"
