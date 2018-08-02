@@ -51,7 +51,7 @@ fi
 			sleep 1
 			echo
 
-			echo $(wget https://www.mediafire.com/file/zxi35jmbyzc6yfj/jdk8_aarch64.tar.gz)
+			echo $(wget https://github.com/ivam3/java/releases/download/v8/jdk8_aarch64.tar.gz)
 sleep 1
 echo
 printf "$green [!] Moving jdk into system ...$reset"
