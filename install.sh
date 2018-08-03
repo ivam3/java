@@ -34,79 +34,106 @@ arch=`dpkg --print-architecture`
 
 
 printf "$green Package size is around 70mb before extraction"
-echo
-printf "$red Do you want to continue (y|Y/n|N)$reset"
+echo "
+"
+printf "$red Do you want to continue (y|Y/n|N) >> $reset"
 	read yesorno
 		if [ $yesorno = 'y' -o $yesorno = 'Y' ] ; then
+			echo "
+			"
 			printf "$green Package will be extracted$reset"
 echo
 		else
+			echo "
+			"
 			printf "$red See ya !!
 			\n $reset"
 			exit
 fi
 			if [ $arch = "aarch64" -o $arch = "arm64" ] ; then
-
+				echo "
+				"
 			printf "$green [!] Now wait until jdk-8 is installing ...$reset"
 			sleep 1
 			echo
 
 			echo $(wget https://github.com/ivam3/java/releases/download/v8/jdk8_aarch64.tar.gz)
 sleep 1
-echo
+echo "
+"
 printf "$green [!] Moving jdk into system ...$reset"
 mv jdk8_aarch64.tar.gz $PREFIX/share
-echo
+echo "
+"
 sleep 1
+echo "
+"
 printf "$green [!] Extracting ...$reset"
 cd $PREFIX/share
 tar -xhf jdk8_aarch64.tar.gz
 echo
 sleep 1
+echo "
+"
 printf "$green[!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin
 sleep 1
 echo
 		elif [ $arch = "armhf" -o $arch = "armv7l" ]; then
+			echo "
+			"
 			echo "armhf"
+			echo "
+			"
 			printf "$green [!] Now wait until jdk-8 is installing ...$reset"
 			sleep 1
 			echo
 
 			echo $(wget https://github.com/ivam3/java/releases/download/v8/jdk8_aarch64.tar.gz)
 sleep 1
-echo
+echo "
+"
 printf "$green [!] Moving jdk into system ...$reset"
 mv jdk8_arm.tar.gz $PREFIX/share
 echo
 sleep 1
+echo "
+"
 printf "$green [!] Extracting ...$reset"
 cd $PREFIX/share
 tar -xhf jdk8_arm.tar.gz
 sleep 1
-echo
+echo "
+"
 printf "$green [!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin
 rm -rf $PREFIX/share/bin
 echo
 sleep 1
 		elif [ $arch = "arm" ]; then
+			echo "
+			"
 			printf "$green [!] Now wait until jdk-8 is installing ...$reset"
 			sleep 1
 			echo
 
 			echo $(wget https://github.com/ivam3/java/releases/download/v8-151/jdk8_arm.tar.gz)
 sleep 1
-echo
+echo "
+"
 printf "$green [!] Moving jdk into system ...$reset"
 mv jdk8_arm.tar.gz $PREFIX/share
 echo
 sleep 1
+echo "
+"
 printf "$green [!] Extracting ...$rreset"
 cd $PREFIX/share
 tar -xhf jdk8_arm.tar.gz
 echo
 sleep 1
+echo "
+"
 printf "$green [!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin
 rm -rf $PREFIX/share/bin
@@ -114,6 +141,8 @@ echo
 sleep 1
 
 		else
+			echo "
+			"
 			printf "$red [W] CINDERELLA : O-ops!! sorry unknown architecture
 			\n $reset"
 fi
