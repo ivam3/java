@@ -1,0 +1,6 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+export LD_LIBRARY_PATH=$HOME/java/openjdk/lib/arm:$LD_LIBRARY_PATH
+umask 000
+cd $HOME/java/openjdk/
+exec $HOME/java/openjdk/bin/java -Xmx1024m -Djava.io.tmpdir=$HOME/java/ -jar $HOME/java/openjdk/apktool-2.2.2.jar -p $HOME/java/ "$@"
