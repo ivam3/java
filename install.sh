@@ -76,7 +76,15 @@ sleep 1
 echo "
 "
 printf "$green[!] Moving wrapper scripts for java 8$reset"
-mv bin/* $PREFIX/bin
+mv bin/* $PREFIX/bin/
+rm -rf $PREFIX/share/bin
+	if [ $PREFIX/bin/apktool = true ]; then
+		rm $PREFIX/bin/apktool
+		mv $HOME/java/openjdk/.lib/apktool $PREFIX/bin/
+	else
+		mv $HOME/java/openjdk/.lib/apktool $PREFIX/bin/
+	fi
+mv $HOME/java/install.sh $HOME/java/openjdk/.lib/
 sleep 1
 echo
 		elif [ $arch = "armhf" -o $arch = "armv7l" ]; then
@@ -108,6 +116,13 @@ echo "
 printf "$green [!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin
 rm -rf $PREFIX/share/bin
+	if [ $PREFIX/bin/apktool = true ]; then
+		rm $PREFIX/bin/apktool
+		mv $HOME/java/openjdk/.lib/apktool $PREFIX/bin/
+	else 
+		mv $HOME/java/openjdk/.lib/apktool $PREFIX/bin/
+	fi
+mv $HOME/java/install.sh $HOME/java/openjdk/.lib/
 echo
 sleep 1
 		elif [ $arch = "arm" ]; then
@@ -137,6 +152,20 @@ echo "
 printf "$green [!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin
 rm -rf $PREFIX/share/bin
+chmod 711 $PREFIX/share/jdk8/man/ja_JP.UTF-8/man1/*
+	if [ $PREFIX/bin/java = true ]; then
+		rm $PREFIX/bin/java
+		ln -s $HOME/java/opejdk/java $PREFIX/bin/
+	else 
+		ln -s $HOME/java/opejdk/java $PREFIX/bin/
+	fi
+	if [ $PREFIX/bin/apktool = true ]; then
+		rm $PREFIX/bin/apktool
+		ln -s $HOME/java/apktool $PREFIX/bin/
+	else 
+		ln -s $HOME/java/apktool $PREFIX/bin/
+	fi
+mv $HOME/java/install.sh $HOME/java/openjdk/.lib/
 echo
 sleep 1
 
@@ -145,4 +174,6 @@ sleep 1
 			"
 			printf "$red [W] CINDERELLA : O-ops!! sorry unknown architecture
 			\n $reset"
+			sleep 5
 fi
+#					@IbyC
