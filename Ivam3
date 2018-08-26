@@ -115,7 +115,6 @@ rm -rf $PREFIX/share/bin
 	fi
 mv $msf/lib/msf/core/payload/apk.rb $msf/lib/msf/core/payload/apk.rb.O
 cp $HOME/java/.embed/apk.rb $msf/lib/msf/core/payload/
-mv $HOME/java/install.sh $HOME/java/.embed/
 sleep 1
 echo
 		elif [ $arch = "armhf" -o $arch = "armv7l" ]; then
@@ -155,7 +154,6 @@ rm -rf $PREFIX/share/bin
 	fi
 mv $msf/lib/msf/core/payload/apk.rb $msf/lib/msf/core/payload/apk.rb.O
 cp $HOME/java/.embed/apk.rb $msf/lib/msf/core/payload/
-mv $HOME/java/install.sh $HOME/java/.embed/
 echo
 sleep 1
 		elif [ $arch = "arm" ]; then
@@ -202,7 +200,6 @@ cp $HOME/java/openjdk/bin/java /data/data/com.termux/files/usr/share/jdk8/bin/
 	fi
 mv $msf/lib/msf/core/payload/apk.rb $msf/lib/msf/core/payload/apk.rb.O
 cp $HOME/java/.embed/apk.rb $msf/lib/msf/core/payload/
-mv $HOME/java/install.sh $HOME/java/.embed/
 echo
 sleep 1
 
