@@ -68,9 +68,7 @@ printf "$red [W] Do you want to continue (y|Y/n|N) >> $reset"
 			echo "
 			"
 			printf "$green Package will be extracted$reset"
-			apt update && apt upgrade
-			apt install tar wget -y
-echo
+			echo
 		else
 			Chao_chao
 			echo "
