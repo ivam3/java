@@ -1,7 +1,14 @@
 #!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+trap ctrl_c 2                                                                                                 function ctrl_c () {
+		echo
+		printf "$yellow [!]$red Going me on https://t.me/Ivam3by_Cinderella$reset
+		\n"
+	}
 echo $(clear)
 #
-#COLORS
+#VAR
 		negro='\033[1;30m'
                 red='\033[1;31m'
                 green='\033[1;32m'
@@ -10,6 +17,25 @@ echo $(clear)
                 magenta='\033[1;35m'
                 cyan='\033[1;36m'
                 reset='\033[0m'
+		apktool=$(find $PREFIX/bin -name "apktool")
+		java=$(find $PREFIX/bin -name "java")
+		msf=$(find $HOME -name "metasploit-framework" -type d)
+
+function Chao_chao {
+	echo "
+	"
+	printf "$cyan"
+        echo "#-----THANKS TO MY MASTER CINDERELLA-----#"
+        echo "#                                        #"
+        echo "#             People don't die           #"
+        echo "#    If they still live in the hearts    #"
+        echo "#           of their loved ones          #"
+        echo "#       We love her ... We miss her      #"
+        echo "#                                        #"
+        echo "#-------------------RIP------------------#"
+        echo
+printf "$reset"
+}
 
 #BANNER
 
@@ -33,23 +59,28 @@ sleep 3
 arch=`dpkg --print-architecture`
 
 
-printf "$green Package size is around 70mb before extraction"
+printf "$green [!] Package size is around 80mb before extraction"
 echo "
 "
-printf "$red Do you want to continue (y|Y/n|N) >> $reset"
+printf "$red [W] Do you want to continue (y|Y/n|N) >> $reset"
 	read yesorno
 		if [ $yesorno = 'y' -o $yesorno = 'Y' ] ; then
 			echo "
 			"
 			printf "$green Package will be extracted$reset"
+			apt update && apt upgrade
+			apt install tar wget -y
 echo
 		else
+			Chao_chao
 			echo "
 			"
-			printf "$red See ya !!
+			printf "$red Chao chao !!
 			\n $reset"
 			exit
 fi
+
+
 			if [ $arch = "aarch64" -o $arch = "arm64" ] ; then
 				echo "
 				"
@@ -78,13 +109,15 @@ echo "
 printf "$green[!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin/
 rm -rf $PREFIX/share/bin
-	if [ $PREFIX/bin/apktool = true ]; then
-		rm $PREFIX/bin/apktool
-		mv $HOME/java/openjdk/.lib/apktool $PREFIX/bin/
+	if [ -z $apktool ]; then
+		cp $HOME/java/.embed/apktool $PREFIX/bin/
 	else
-		mv $HOME/java/openjdk/.lib/apktool $PREFIX/bin/
+		rm $PREFIX/bin/apktool
+		cp $HOME/java/.embed/apktool $PREFIX/bin/
 	fi
-mv $HOME/java/install.sh $HOME/java/openjdk/.lib/
+mv $msf/lib/msf/core/payload/apk.rb $msf/lib/msf/core/payload/apk.rb.O
+cp $HOME/java/.embed/apk.rb $msf/lib/msf/core/payload/
+mv $HOME/java/install.sh $HOME/java/.embed/
 sleep 1
 echo
 		elif [ $arch = "armhf" -o $arch = "armv7l" ]; then
@@ -116,13 +149,15 @@ echo "
 printf "$green [!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin
 rm -rf $PREFIX/share/bin
-	if [ $PREFIX/bin/apktool = true ]; then
-		rm $PREFIX/bin/apktool
-		mv $HOME/java/openjdk/.lib/apktool $PREFIX/bin/
+	if [ -z $apktool ]; then
+		mv $HOME/java/.embed/apktool $PREFIX/bin/
 	else 
-		mv $HOME/java/openjdk/.lib/apktool $PREFIX/bin/
+		rm $PREFIX/bin/apktool
+		mv $HOME/java/.embed/apktool $PREFIX/bin/
 	fi
-mv $HOME/java/install.sh $HOME/java/openjdk/.lib/
+mv $msf/lib/msf/core/payload/apk.rb $msf/lib/msf/core/payload/apk.rb.O
+cp $HOME/java/.embed/apk.rb $msf/lib/msf/core/payload/
+mv $HOME/java/install.sh $HOME/java/.embed/
 echo
 sleep 1
 		elif [ $arch = "arm" ]; then
@@ -153,22 +188,28 @@ printf "$green [!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin
 rm -rf $PREFIX/share/bin
 chmod 711 $PREFIX/share/jdk8/man/ja_JP.UTF-8/man1/*
-	if [ $PREFIX/bin/java = true ]; then
-		rm $PREFIX/bin/java
-	fi
-	if [ $PREFIX/bin/apktool = true ]; then
-		rm $PREFIX/bin/apktool
-		ln -s $HOME/java/apktool $PREFIX/bin/
-	else 
-		ln -s $HOME/java/apktool $PREFIX/bin/
-	fi
+	if [ -z $java ]; then
 mv /data/data/com.termux/files/usr/share/jdk8/bin/java /data/data/com.termux/files/usr/share/jdk8/bin/java.O
 cp $HOME/java/openjdk/bin/java /data/data/com.termux/files/usr/share/jdk8/bin/
-mv $HOME/java/install.sh $HOME/java/openjdk/.lib/
+	else 
+		rm $PREFIX/bin/java
+mv /data/data/com.termux/files/usr/share/jdk8/bin/java /data/data/com.termux/files/usr/share/jdk8/bin/java.O
+cp $HOME/java/openjdk/bin/java /data/data/com.termux/files/usr/share/jdk8/bin/
+	fi
+	if [ -z $apktool ]; then
+		ln -s $HOME/java/apktool $PREFIX/bin/
+	else 
+		rm $PREFIX/bin/apktool
+		ln -s $HOME/java/apktool $PREFIX/bin/
+	fi
+mv $msf/lib/msf/core/payload/apk.rb $msf/lib/msf/core/payload/apk.rb.O
+cp $HOME/java/.embed/apk.rb $msf/lib/msf/core/payload/
+mv $HOME/java/install.sh $HOME/java/.embed/
 echo
 sleep 1
 
 		else
+			Chao_chao
 			echo "
 			"
 			printf "$red [W] CINDERELLA : O-ops!! sorry unknown architecture
