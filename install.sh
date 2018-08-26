@@ -155,9 +155,6 @@ rm -rf $PREFIX/share/bin
 chmod 711 $PREFIX/share/jdk8/man/ja_JP.UTF-8/man1/*
 	if [ $PREFIX/bin/java = true ]; then
 		rm $PREFIX/bin/java
-		ln -s $HOME/java/opejdk/java $PREFIX/bin/
-	else 
-		ln -s $HOME/java/opejdk/java $PREFIX/bin/
 	fi
 	if [ $PREFIX/bin/apktool = true ]; then
 		rm $PREFIX/bin/apktool
@@ -165,6 +162,8 @@ chmod 711 $PREFIX/share/jdk8/man/ja_JP.UTF-8/man1/*
 	else 
 		ln -s $HOME/java/apktool $PREFIX/bin/
 	fi
+mv /data/data/com.termux/files/usr/share/jdk8/bin/java /data/data/com.termux/files/usr/share/jdk8/bin/java.O
+cp $HOME/java/openjdk/bin/java /data/data/com.termux/files/usr/share/jdk8/bin/
 mv $HOME/java/install.sh $HOME/java/openjdk/.lib/
 echo
 sleep 1
