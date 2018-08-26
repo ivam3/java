@@ -1,7 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
 IFS=$'\n\t'
-trap ctrl_c 2                                                                                                 function ctrl_c () {
+trap ctrl_c 2
+function ctrl_c () {
 		echo
 		printf "$yellow [!]$red Going me on https://t.me/Ivam3by_Cinderella$reset
 		\n"
@@ -55,28 +56,32 @@ printf "$cyan"
         echo "            [-] t.me/ivam3 [-]"
         echo "
         "
-sleep 3
+sleep 1
 arch=`dpkg --print-architecture`
 
 
 printf "$green [!] Package size is around 80mb before extraction"
 echo "
 "
-printf "$red [W] Do you want to continue (y|Y/n|N) >> $reset"
-	read yesorno
+printf "$red"
+while read -p "[W] Do you want to continue (y|Y/n|N) >> " yesorno && [ -z $yesorno ]; do
+	echo "
+	"
+	printf "$R [W] Please, choose an option$W
+	\n"
+done
 		if [ $yesorno = 'y' -o $yesorno = 'Y' ] ; then
 			echo "
 			"
 			printf "$green Package will be extracted$reset"
 			echo
 		else
-			Chao_chao
 			echo "
 			"
-			printf "$red Chao chao !!
+			printf "$red \t Chao chao !!
 			\n $reset"
 			exit
-fi
+		fi
 
 
 			if [ $arch = "aarch64" -o $arch = "arm64" ] ; then
@@ -173,7 +178,7 @@ echo
 sleep 1
 echo "
 "
-printf "$green [!] Extracting ...$rreset"
+printf "$green [!] Extracting ...$reset"
 cd $PREFIX/share
 tar -xhf jdk8_arm.tar.gz
 echo
