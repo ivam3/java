@@ -5,5 +5,5 @@ export LD_LIBRARY_PATH=/data/data/com.termux/files/home/java/openjdk/lib/arm:/da
 umask 000
 cd $HOME/java/openjdk/
 
-/data/data/com.termux/files/home/java/openjdk/java -Xmx1024m -jar /data/data/com.termux/files/home/java/openjdk/signapk.jar /data/data/com.termux/files/home/java/.embed/publickey.x509.pem /data/data/com.termux/files/home/java/.embed/publickey.pk8 "$@" 
+/data/data/com.termux/files/home/java/openjdk/java -Xmx1024m -jar /data/data/com.termux/files/home/java/openjdk/signapk.jar /data/data/com.termux/files/home/java/openjdk/publickey.x509.pem /data/data/com.termux/files/home/java/openjdk/publickey.pk8 "$@" 
 
