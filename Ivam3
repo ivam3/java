@@ -114,7 +114,7 @@ rm -rf $PREFIX/share/bin
 		rm $PREFIX/bin/apktool
 	fi
 cp $HOME/java/.embed/apktool $PREFIX/bin/
-cp $HOME/java/openjdk/apktool-2.2.2-jar $PREFIX/var/spool/
+cp $HOME/java/openjdk/apktool-2.2.2.jar $PREFIX/var/spool/
 chmod 711 $PREFIX/share/jdk8/man/ja_JP.UTF-8/man1/*
 Chao_chao
 sleep 1
@@ -155,7 +155,7 @@ rm -rf $PREFIX/share/bin
                 rm $PREFIX/bin/apktool
         fi
 cp $HOME/java/.embed/apktool $PREFIX/bin/
-cp $HOME/java/openjdk/apktool-2.2.2-jar $PREFIX/var/spool/
+cp $HOME/java/openjdk/apktool-2.2.2.jar $PREFIX/var/spool/
 chmod 711 $PREFIX/share/jdk8/man/ja_JP.UTF-8/man1/*
 Chao_chao
 sleep 1
@@ -192,6 +192,7 @@ printf "$green [!] Moving wrapper scripts for java 8$reset"
 		rm $java
 	fi
 cp $HOME/java/.embed/apktool $PREFIX/share/bin/
+cp $HOME/java/openjdk/apktool-2.2.2.jar $PREFIX/var/spool/
 mv bin/* $PREFIX/bin
 rm -rf $PREFIX/share/bin
 chmod 711 $PREFIX/share/jdk8/man/ja_JP.UTF-8/man1/*
