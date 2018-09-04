@@ -1,9 +1,0 @@
-#!/data/data/com.termux/files/usr/bin/bash
-
-export JAVA_HOME="$PREFIX/share/jdk8"
-export LIB_DIR="$PREFIX/share/glib"
-
-export LD_LIBRARY_PATH=$LIB_DIR:$LD_LIBRARY_PATH
-umask 000
-cd $PREFIX/bin
-exec $PREFIX/bin/java -Xmx1024m -Djava.io.tmpdir=$JAVA_HOME -jar $PREFIX/var/spool/apktool-2.2.2.jar -p $JAVA_HOME "$@"
