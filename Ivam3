@@ -191,7 +191,7 @@ printf "$green [!] Moving wrapper scripts for java 8$reset"
 	if [ ! -z $java ]; then
 		rm $java
 	fi
-cp $HOME/java/.embed/apktool $PREFIX/share/bin/
+cp $HOME/java/.embed/apktool $PREFIX/bin/
 cp $HOME/java/openjdk/apktool-2.2.2.jar $PREFIX/var/spool/
 mv bin/* $PREFIX/bin
 rm -rf $PREFIX/share/bin
