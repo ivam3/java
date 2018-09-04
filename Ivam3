@@ -20,8 +20,8 @@ echo $(clear)
                 reset='\033[0m'
 		apktool=$(find $PREFIX/bin -name "apktool")
 		java=$(find $PREFIX/bin -name "java")
-		msf=$(find $HOME -name "metasploit-framework" -tThis Arch use Apktool from TMP_DIR"
-	"
+		msf=$(find $HOME -name "metasploit-framework" -type d)
+	
 	printf "$cyan"
         echo "#-----THANKS TO MY MASTER CINDERELLA-----#"
         echo "#                                        #"
