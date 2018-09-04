@@ -249,7 +249,7 @@ class Msf::Payload::Apk
       raise RuntimeError, "Unable to rebuild apk with apktool"
     end
 
-    run_cmd("cp #{tempdir}/output.apk $HOME/java/unsigned")
+    run_cmd("cp #{tempdir}/output.apk $HOME/java/unsign")
     FileUtils.remove_entry tempdir
     #outputapk
   end
