@@ -110,7 +110,7 @@ echo "
 printf "$green[!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin/
 rm -rf $PREFIX/share/bin
-	if [ -e $apktool ] || [ -L $apktool ]; then
+	if [ ! -z $apktool ]; then
 		rm $PREFIX/bin/apktool
 	fi
 cp $HOME/java/.embed/apktool $PREFIX/bin/
@@ -151,7 +151,7 @@ echo "
 printf "$green [!] Moving wrapper scripts for java 8$reset"
 mv bin/* $PREFIX/bin
 rm -rf $PREFIX/share/bin
-	if [ -e $apktool ] || [ -L $apktool ]; then
+	if [ ! -z $apktool ]; then
                 rm $PREFIX/bin/apktool
         fi
 cp $HOME/java/.embed/apktool $PREFIX/bin/
@@ -191,6 +191,9 @@ printf "$green [!] Moving wrapper scripts for java 8$reset"
 	if [ ! -z $java ]; then
 		rm $java
 	fi
+	if [ ! -z $apktool ]; then
+                rm $apktool
+        fi
 cp $HOME/java/.embed/apktool $PREFIX/bin/
 cp $HOME/java/openjdk/apktool-2.2.2.jar $PREFIX/var/spool/
 mv bin/* $PREFIX/bin
