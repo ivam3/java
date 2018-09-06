@@ -1,9 +1,12 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-export LD_PRELOAD=
-export LD_LIBRARY_PATH=/data/data/com.termux/files/home/java/openjdk/lib/arm:/data/data/com.termux/files/home/java/openjdk/lib/arm/jli:$LD_LIBRARY_PATH
+unset LD_PRELOAD=
+export JAVA_HOME="$HOME/java"
+
+export LIB_DIR="$JAVA_HOME/openjdk/lib/arm"
+export LD_LIBRARY_PATH="$LIB_DIR"
 umask 000
-cd $HOME/java/openjdk/
+cd $JAVA_HOME/openjdk
 
 /data/data/com.termux/files/home/java/openjdk/java -Xmx1024m -jar /data/data/com.termux/files/home/java/openjdk/signapk.jar /data/data/com.termux/files/home/java/openjdk/publickey.x509.pem /data/data/com.termux/files/home/java/openjdk/publickey.pk8 "$@" 
 
