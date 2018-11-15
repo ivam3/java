@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-unset LD_PRELOAD=
+unset LD_PRELOAD
 export JAVA_HOME="$HOME/java"
 
 export LIB_DIR="$JAVA_HOME/openjdk/lib/arm"
