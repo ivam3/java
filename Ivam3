@@ -4,7 +4,7 @@ IFS=$'\n\t'
 trap ctrl_c 2
 function ctrl_c () {
 		echo
-		printf "$yellow [!]$red Going me on https://t.me/Ivam3by_Cinderella$reset
+		printf "$yellow [!]$red Going me on https://t.me/Ivam3byCinderella$reset
 		\n"
 	}
 echo $(clear)
@@ -20,7 +20,7 @@ echo $(clear)
                 reset='\033[0m'
 		apktool=$(find $PREFIX/bin -name "apktool")
 		java=$(find $PREFIX/bin -name "java")
-		msf=$(find $HOME -name "metasploit-framework" -type d)
+		msf=$(find $PREFIX/opt -name "metasploit-framework" -type d)
 
 function Chao_chao {
 	printf "$cyan"
@@ -79,19 +79,19 @@ done
 # This Arch use Apktool from TMP_DIR
 #
 	if [ $arch = "aarch64" -o $arch = "arm64" ] ; then
-		printf "\n\n$green [!] Now wait until jdk-8 is installing ...$reset\n"
+		printf "$green\n[!] Now wait until jdk-8 is installing ...$reset\n"
 		sleep 1
 		echo
 		echo $(wget https://github.com/ivam3/java/releases/download/v8/jdk8_aarch64.tar.gz)
 		sleep 1
-		printf "\n\n$green [!] Moving jdk into system ...$reset\n"
+		printf "$green\n[!] Moving jdk into system ...$reset\n"
 		mv jdk8_aarch64.tar.gz $PREFIX/share
 		sleep 1
-		printf "\n\n$green [!] Extracting ...$reset\n"
+		printf "$green\n[!] Extracting ...$reset\n"
 		cd $PREFIX/share
 		tar -xhf jdk8_aarch64.tar.gz
 		sleep 1
-		printf "\n\n$green[!] Moving wrapper scripts for java 8$reset\n"
+		printf "$green\n[!] Moving wrapper scripts for java 8$reset\n"
 		mv bin/* $PREFIX/bin/
 		rm -rf $PREFIX/share/bin
 			if [ ! -z $apktool ]; then
@@ -108,19 +108,19 @@ done
 # This Arch use Apktool from TMP_DIR
 #
 	elif [ $arch = "armhf" -o $arch = "armv7l" ]; then
-		printf "\n\n$green [!] Now wait until jdk-8 is installing ...$reset\n"
+		printf "$green\n[!] Now wait until jdk-8 is installing ...$reset\n"
 		sleep 1
 		echo $(wget https://github.com/ivam3/java/releases/download/v8/jdk8_aarch64.tar.gz)
 		sleep 1
-		printf "\n\n$green [!] Moving jdk into system ...$reset\n"
+		printf "$green\n[!] Moving jdk into system ...$reset\n"
 		mv jdk8_arm.tar.gz $PREFIX/share
 		echo
 		sleep 1
-		printf "\n\n$green [!] Extracting ...$reset\n"
+		printf "$green\n[!] Extracting ...$reset\n"
 		cd $PREFIX/share
 		tar -xhf jdk8_arm.tar.gz
 		sleep 1
-		printf "\n\n$green [!] Moving wrapper scripts for java 8$reset\n"
+		printf "$green\n[!] Moving wrapper scripts for java 8$reset\n"
 		mv bin/* $PREFIX/bin
 		rm -rf $PREFIX/share/bin
 			if [ ! -z $apktool ]; then
@@ -138,18 +138,18 @@ done
 # This Arch use libld.so & apktool from TMP_DIR
 #
 	elif [ $arch = "arm" ]; then
-		printf "\n\n$green [!] Now wait until jdk-8 is installing ...$reset\n"
+		printf "$green\n[!] Now wait until jdk-8 is installing ...$reset\n"
 		sleep 1
 		echo $(wget https://github.com/ivam3/java/releases/download/v8-151/jdk8_arm.tar.gz)
 		sleep 1
-		printf "\n\n$green [!] Moving jdk into system ...$reset\n"
+		printf "$green\n[!] Moving jdk into system ...$reset\n"
 		mv jdk8_arm.tar.gz $PREFIX/share
 		sleep 1
-		printf "\n\n$green [!] Extracting ...$reset\n"
+		printf "$green\n[!] Extracting ...$reset\n"
 		cd $PREFIX/share
 		tar -xhf jdk8_arm.tar.gz
 		sleep 1
-		printf "\n\n$green [!] Moving wrapper scripts for java 8$reset\n"
+		printf "$green\n[!] Moving wrapper scripts for java 8$reset\n"
 			if [ ! -z $java ]; then
 				rm $java
 			fi
