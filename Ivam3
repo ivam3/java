@@ -137,7 +137,7 @@ done
 #
 # This Arch use libld.so & apktool from TMP_DIR
 #
-	elif [ $arch = "arm" ]; then
+	elif [ $arch = "arm" -o $arch = "i868" ]; then
 		printf "$green\n[!] Now wait until jdk-8 is installing ...$reset\n"
 		sleep 1
 		echo $(wget https://github.com/ivam3/java/releases/download/v8-151/jdk8_arm.tar.gz)
