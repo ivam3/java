@@ -156,7 +156,7 @@ class Msf::Payload::Apk
 
     apk_v = Gem::Version.new(apktool)
     unless apk_v >= Gem::Version.new('2.0.1')
-      raise RuntimeError, "apktool version #{apk_v} not supported, please download at least version 2.0.1."
+      raise RuntimeError, "apktool version #{apk_v} not supported, please run set-apktool file to fix it."
     end
 
     #Create temporary directory where work will be done
@@ -189,12 +189,12 @@ class Msf::Payload::Apk
     end
 
     unless hooksmali
-      raise RuntimeError, "Unable to find hook point in #{smalifile}\n"
+      raise RuntimeError, "Unable to find any vulnerability in #{smalifile}\n"
     end
 
     entrypoint = 'return-void'
     unless hooksmali.include? entrypoint
-      raise RuntimeError, "Unable to find hookable function in #{smalifile}\n"
+      raise RuntimeError, "Unable to find any vulnerable function in #{smalifile}\n"
     end
 
     # Remove unused files
