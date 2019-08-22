@@ -92,6 +92,36 @@ java64() {
 	sleep 1
 	echo
 }
+jre64() {
+        printf "$green\n[!] Now wait until jre-8 is installing ...$reset\n"
+        sleep 1
+        echo $(wget https://github.com/ivam3/java/releases/download/8u221/jre_aarch64.tar.gz)
+        sleep 1
+        printf "$green\n[!] Moving jdk into system ...$reset\n"
+	chmod 777 jre_aarch64.tar.gz
+        mv jre_aarch64.tar.gz $PREFIX/share
+        echo
+        sleep 1
+        printf "$green\n[!] Extracting ...$reset\n"
+        cd $PREFIX/share
+        tar -xhf jre_aarch64.tar.gz
+	mv jre_aarch64/* $PREFIX/share
+        sleep 1
+        printf "$green\n[!] Moving wrapper scripts for java 8$reset\n"
+        mv bin/* $PREFIX/bin
+        rm -rf $PREFIX/share/bin
+	rm -rf $PREFIX/share/jre_aarch64
+                if [ ! -z $apktool ]; then
+                        rm $PREFIX/bin/apktool
+                fi
+        cp $HOME/java/.embed/apktool $PREFIX/bin/
+        cp $HOME/java/openjdk/apktool_jar/apktool_2.3.4.jar $PREFIX/var/spool/apktool.jar
+        cp $HOME/java/openjdk/lib/libc++_shared.so $PREFIX/share/glib/
+        chmod 711 $PREFIX/share/jdk8/man/ja_JP.UTF-8/man1/*
+        Chao_chao
+        sleep 1
+        echo
+}
 
 #BANNER
 
@@ -136,14 +166,13 @@ done
 # This Arch use Apktool from TMP_DIR
 #
 	if [ $arch = "aarch64" -o $arch = "arm64" ] ; then
-		java32
+		jre64
 #		java64
 #
 # This Arch use Apktool from TMP_DIR
 #
 	elif [ $arch = "armhf" -o $arch = "armv7l" ]; then
-		java32
-#		java64
+		java64
 #
 # This Arch use libld.so & apktool from TMP_DIR
 #
