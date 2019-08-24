@@ -105,10 +105,10 @@ jre64() {
         printf "$green\n[!] Extracting ...$reset\n"
         cd $PREFIX/share
         tar -xhf jre_aarch64.tar.gz
-	mv jre_aarch64/* $PREFIX/share
+	mv $PREFIX/share/jre_aarch64/* $PREFIX/share/
         sleep 1
         printf "$green\n[!] Moving wrapper scripts for java 8$reset\n"
-        mv bin/* $PREFIX/bin
+        mv $PREFIX/share/bin/* $PREFIX/bin
         rm -rf $PREFIX/share/bin
 	rm -rf $PREFIX/share/jre_aarch64
                 if [ ! -z $apktool ]; then
@@ -166,7 +166,9 @@ done
 # This Arch use Apktool from TMP_DIR
 #
 	if [ $arch = "aarch64" -o $arch = "arm64" ] ; then
-		jre64
+		printf "\n$red [W] O-ops!! uncapitble architecture\n\n$reset"
+		exit
+#		jre64
 #		java64
 #
 # This Arch use Apktool from TMP_DIR
@@ -180,7 +182,7 @@ done
 		java32
 	else
 		Chao_chao
-		printf "\n\n$red [W] CINDERELLA : O-ops!! sorry unknown architecture\n\n$reset"
+		printf "\n\n$red [W] O-ops!! sorry unknown architecture\n\n$reset"
 		sleep 5
 	fi
 #					@IbyC
