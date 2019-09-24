@@ -41,8 +41,13 @@ java32() {
 	echo $(wget https://github.com/ivam3/java/releases/download/v8-151/jdk8_arm.tar.gz)
 	sleep 1
 	printf "$green\n[!] Moving jdk into system ...$reset\n"
-	mv jdk8_arm.tar.gz $PREFIX/share
-	sleep 1
+	if [ $PWD/jdk8_arm.tar.gz ]; then
+		mv jdk8_arm.tar.gz $PREFIX/share
+		sleep 1
+	else
+		printf "$red\n[w] Download was corrupted $reset\n"
+		exit
+	fi
 	printf "$green\n[!] Extracting ...$reset\n"
 	cd $PREFIX/share
 	tar -xhf jdk8_arm.tar.gz
@@ -71,12 +76,17 @@ java64() {
 	echo $(wget https://github.com/ivam3/java/releases/download/v8/jdk8_aarch64.tar.gz)
 	sleep 1
 	printf "$green\n[!] Moving jdk into system ...$reset\n"
-	mv jdk8_arm.tar.gz $PREFIX/share
-	echo
-	sleep 1
+	if [ $PWD/jdk8_aarch64.tar.gz ]; then
+		mv jdk8_aarch64.tar.gz $PREFIX/share
+		echo
+		sleep 1
+	else
+		printf "$red\n[w] Download was corrupted $reset\n"
+		exit
+	fi
 	printf "$green\n[!] Extracting ...$reset\n"
 	cd $PREFIX/share
-	tar -xhf jdk8_arm.tar.gz
+	tar -xhf jdk8_aarch64.tar.gz
 	sleep 1
 	printf "$green\n[!] Moving wrapper scripts for java 8$reset\n"
 	mv bin/* $PREFIX/bin
