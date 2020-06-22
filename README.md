@@ -1,4 +1,5 @@
-# ADAPTED BY IVAM3
+#termux 
+ ADAPTED BY IVAM3
 #
 #:::::::  Java for termux  :::::::::::::
 #
