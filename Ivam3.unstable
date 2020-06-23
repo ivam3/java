@@ -137,7 +137,7 @@ java64() {
 	printf "$G\n[!] Extracting ...$W\n"
 	pushd $PREFIX/share
 	tar -xhf jdk8_aarch64.tar.gz
-	printf "$green\n[!] Moving wrapper scripts for java 8$reset\n"
+	printf "$G\n[!] Moving wrapper scripts for java 8$W\n"
 	mv bin/* $PREFIX/bin
 	rm -rf $PREFIX/share/bin
 		if [ ! -z $apktool ]; then
