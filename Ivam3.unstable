@@ -166,8 +166,8 @@ jre64() {
                 if [ ! -z $apktool ]; then
                         rm $PREFIX/bin/apktool
                 fi
-        cp $HOME/java/.embed/apktool $PREFIX/bin/
-        cp $HOME/java/openjdk/apktool_jar/apktool_2.3.4.jar $PREFIX/var/spool/apktool.jar
+	cp $HOME/java/.embed/apktool $PREFIX/bin/
+	cp $HOME/java/openjdk/apktool_jar/apktool_2.3.4.jar $PREFIX/var/spool/apktool.jar
         cp $HOME/java/openjdk/lib/libc++_shared.so $PREFIX/share/glib/
         chmod 711 $PREFIX/share/jdk8/man/ja_JP.UTF-8/man1/*
         popd
