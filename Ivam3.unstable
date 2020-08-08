@@ -172,6 +172,18 @@ jre64() {
         chmod 711 $PREFIX/share/jdk8/man/ja_JP.UTF-8/man1/*
         popd
 }
+apktool_fix() {
+	git clone https://github.com/warren-bank/node-remap-apktool-unicode-filenames $HOME/java/warren-bank/node-remap-apktool-unicode-filenames >/dev/null 2>&1
+	if [ -d $HOME/java/warren-bank/node-remap-apktool-unicode-filenames ]
+	then
+		pushd $HOME/java/warren-bank/node-remap-apktool-unicode-filenames >/dev/null 2>&1
+		command -v npm >/dev/null || yes |apt install perl
+		npm install --global @warren-bank/node-remap-apktool-unicode-filenames
+	else
+		printf "$R\n[ERR-rauf]-> Going on$W https://t.me/Ivam3_Bot\n"
+		sleep 3
+	fi
+}
 
 arch=`dpkg --print-architecture`
 #
@@ -181,6 +193,7 @@ arch=`dpkg --print-architecture`
 #		printf "$R\n[W] O-ops!! incompatible architecture\n\n$W"
 #		jre64
 		java64
+		apktool_fix
 		Chao_chao
 		printf "$Y\n[!]─➤ Remember to use java you have to be root"
 		while [ $ROOT = "false" ]; do
@@ -199,12 +212,14 @@ arch=`dpkg --print-architecture`
 #
 	elif [ $arch = "armhf" -o $arch = "armv7l" ]; then
 		java64
+		apktool_fix
 		Chao_chao
 #
 # This Arch use libld.so & apktool from TMP_DIR
 #
 	elif [ $arch = "arm" -o $arch = "i868" ]; then
 		java32
+		apktool_fix
 		Chao_chao
 	else
 		printf "\n\n$R[W] O-ops!! sorry unknown architecture\n\n$W"
