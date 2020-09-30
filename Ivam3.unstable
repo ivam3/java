@@ -113,6 +113,9 @@ java32() {
 		if [ ! -z $apktool ]; then
 			rm $apktool
 		fi
+		if [ ! -d $PREFIX/var/spool/ ]; then
+			mkdir -p $PREFIX/var/spool/
+		fi
 	cp $HOME/java/.embed/apktool $PREFIX/bin/
         cp $HOME/java/openjdk/apktool_jar/apktool-2.2.2.jar $PREFIX/var/spool/apktool.jar
         cp $HOME/java/openjdk/lib/libc++_shared.so $PREFIX/share/glib/
@@ -143,6 +146,9 @@ java64() {
 		if [ ! -z $apktool ]; then
 			rm $PREFIX/bin/apktool
 		fi
+		if [ ! -d $PREFIX/var/spool ]; then
+			mkdir -p $PREFIX/var/spool
+		fi
 	cp $HOME/java/.embed/apktool $PREFIX/bin/
 	cp $HOME/java/openjdk/apktool_jar/apktool_2.3.4.jar $PREFIX/var/spool/apktool.jar
 	cp $HOME/java/openjdk/lib/libc++_shared.so $PREFIX/share/glib/
@@ -166,6 +172,9 @@ jre64() {
                 if [ ! -z $apktool ]; then
                         rm $PREFIX/bin/apktool
                 fi
+		if [ ! -d $PREFIX/var/spool ]; then
+			mkdir -p $PREFIX/var/spool
+		fi
 	cp $HOME/java/.embed/apktool $PREFIX/bin/
 	cp $HOME/java/openjdk/apktool_jar/apktool_2.3.4.jar $PREFIX/var/spool/apktool.jar
         cp $HOME/java/openjdk/lib/libc++_shared.so $PREFIX/share/glib/
