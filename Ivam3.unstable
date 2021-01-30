@@ -194,7 +194,7 @@ apktool_fix() {
 	if [ -d $HOME/java/warren-bank/node-remap-apktool-unicode-filenames ]
 	then
 		cd $HOME/java/warren-bank/node-remap-apktool-unicode-filenames
-		command -v npm >/dev/null || yes |apt install perl
+		command -v npm >/dev/null || yes |apt install perl nodejs
 		npm install --global @warren-bank/node-remap-apktool-unicode-filenames
 	else
 		printf "$R\n[ERR-rauf]-> Going on$W https://t.me/Ivam3_Bot\n"
