@@ -7,8 +7,8 @@ This software and related documentation are provided under license agreement con
 # INSTALLATION.
 
 Its installation has been simplified as much as possible and for this you will only have to execute the following commands:
-
-        $ yes|apt update && apt upgrade && apt install git
+        
+	$ yes|apt update && apt upgrade && apt install git
 	$ git clone https://github.com/Ivam3/java.git $HOME
 	$ cd $HOME/java
 	$ chmod +x setup
