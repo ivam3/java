@@ -16,10 +16,12 @@ Its installation has been simplified as much as possible and for this you will o
 # USAGE.
 
 Java needs administrator permissions(ROOT) to be executed, however it is not mandatory that the device is rooted because java works in Termux's $PREFIX environment, so if your device is not rooted you can call the fake root under the next :
+
         $ proot -0 -w ~ $SHELL
 
-And then you just call java as
-	$ java --help
+And then you just call java as :
+
+        $ java --help
 
 	Usage: java [-options] class [args...]
            (to execute a class)
