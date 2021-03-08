@@ -2,11 +2,12 @@
 
 Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let application developers write once, run anywhere (WORA), meaning that compiled Java code can run on all platforms that support Java without the need for recompilation.
 
-This software and related documentation are provided under license agreement containing in www.java.com
+This software and related documentation are provided under license agreement containing in https://www.java.com
 
 # INSTALLATION.
 
 Its installation has been simplified as much as possible and for this you will only have to execute the following commands:
+
         $ yes|apt update && apt upgrade && apt install git
 	$ git clone https://github.com/Ivam3/java.git $HOME
 	$ cd $HOME/java
@@ -82,8 +83,7 @@ And then you just call java as :
 To get help about how to use it, join to Telegram group chat on :
         https://t.me/Ivam3byCinderella
 
-To report some issues join to:
-        https://t.me/Ivam3_Bot
+To report some issues join to: https://t.me/Ivam3_Bot
 
-Please refer to http://java.com/licensereadme
+You can too refer at http://java.com/licensereadme
 
