@@ -6,7 +6,7 @@ This software and related documentation are provided under license agreement con
 
 # INSTALLATION.
 
-Its installation has been simplified as much as possible and for this you will only have to execute the following commands:
+Its installation has been simplified as much as possible and for this you will only have to execute the following commands :
         
 	$ yes|apt update && apt upgrade && apt install git
 	$ git clone https://github.com/Ivam3/java.git $HOME
@@ -16,7 +16,7 @@ Its installation has been simplified as much as possible and for this you will o
 
 # USAGE.
 
-Java needs administrator permissions(ROOT) to be executed, however it is not mandatory that the device is rooted because java works in Termux's $PREFIX environment, so if your device is not rooted you can call the fake root under the next :
+Java needs administrator permissions(ROOT) to be executed, however it is not mandatory that the device is rooted because java works in Termux's $PREFIX environment, so if your device is not rooted you can call the fake root under the next command :
 
         $ proot -0 -w ~ $SHELL
 
@@ -85,5 +85,5 @@ To get help about how to use it, join to Telegram group chat on :
 
 To report some issues join to: https://t.me/Ivam3_Bot
 
-You can too refer at http://java.com/licensereadme
+You can refer too at http://java.com/licensereadme
 
