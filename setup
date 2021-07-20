@@ -8,6 +8,7 @@ R='\033[1;31m'
 G='\033[1;32m'
 Goke='\033[92m'
 W='\033[0m'
+SOv=$(termux-info |awk '$1 < 11 {print $1}' |tail -n 1 |awk -F "." '{print $1}')
 javarepo="https://github.com/ivam3/java/releases/download"
 apktoolV=$(apktool --version)
 
@@ -21,9 +22,10 @@ dependencies() {
 	command -v npm >/dev/null || yes|apt install perl nodejs
 	command -v wget >/dev/null || yes|apt install wget
 	command -v git >/dev/null || yes|apt install git
+	command -v proot >/dev/null || yes|apt install proot
 }
 		
-cleanup() { rm -f jdk8_${arch}.tar.gz;rm -rf $PREFIX/share/bin;rm -rf node-remap-apktool-unicode-filenames;}
+cleanup() { rm -f jdk8_${arch}.tar.gz;rm -rf $PREFIX/share/bin;rm -rf $PWD;rm -rf node-remap-apktool-unicode-filenames;}
 
 get_tar() {
     wget -q --show-progress -c $javarepo/$version/jdk8_$arch.tar.gz -O jdk8_$arch.tar.gz
@@ -48,18 +50,53 @@ export LD_LIBRARY_PATH=\$LIB_DIR:\$LD_LIBRARY_PATH
 umask 000
 exec \$PREFIX/bin/java -Xmx1024m -Djava.io.tmpdir=\$JAVA_HOME -jar \$PREFIX/var/spool/apktool.jar -p \$JAVA_HOME "\$@"
 CONF
+cat <<- CONF > $PREFIX/bin/signapk
+#!/usr/bin/bash
+unset LD_PRELOAD
+export JAVA_HOME="\$PREFIX/share/jdk8"
+export LIB_DIR="\$PREFIX/share/glib"
+export LD_LIBRARY_PATH="\$LIB_DIR"
+umask 000
+exec java -Xmx1024m -jar \${JAVA_HOME}/signapk.jar \${JAVA_HOME}/publickey.x509.pem \${JAVA_HOME}/publickey.pk8 "\$@"
+CONF
+cat <<- CONF > $PREFIX/bin/keytool
+#!/usr/bin/bash
+unset LD_PRELOAD
+export JAVA_HOME="\$PREFIX/share/jdk8"
+export LIB_DIR="\$PREFIX/share/glib"
+export LD_LIBRARY_PATH="\$LIB_DIR"
+exec proot -0 \$JAVA_HOME/bin/keytool "\$@"
+CONF
 }
 
+get_apksigner() {
+	printf "$G(_>)─➤$W Installing apksigner."
+	if [[ "$SOv" -gt 8 ]]; then
+		apksigner="apksigner"
+	else
+		apksigner="apksigner-old"
+	fi
+	command -v apksigner >/dev/null || yes|apt install $apksigner
+}
+get_signapk() {
+	printf "$G(_>)─➤$W Installing signapk"
+	for i in signapk.jar publickey.x509.pem publickey.pk8;do
+		mv openjdk/$i $PREFIX/share/jdk8
+	done
+}
+get_keytool() {
+	printf "$G(_>)─➤$W Installing keytool"
+}
 get_apktool() {
-	printf "$G(_>)─➤$W Moving wrapper scripts for java 8"
+	printf "$G(_>)─➤$W Installing apktool"
 	if [ ! -d $PREFIX/var/spool/ ]; then
 		mkdir -p $PREFIX/var/spool/
 	fi
         cp openjdk/apktool_jar/apktool_2.3.4.jar $PREFIX/var/spool/apktool.jar
         cp openjdk/lib/libc++_shared.so $PREFIX/share/glib/
 }
-
 apktool_fix() {
+	printf "$G(_>)─➤$W Remap apktool unicode filenames."
 	git clone https://github.com/warren-bank/node-remap-apktool-unicode-filenames >/dev/null 2>&1
 	if [ -d warren-bank ]; then
 		cd node-remap-apktool-unicode-filenames
@@ -89,6 +126,9 @@ elif [[ $1 = java8 ]]; then
 	dependencies
 	get_tar
 	get_binaries
+	get_apksigner
+	get_signapk
+	get_keytool
 	get_apktool
 	apktool_fix
 	cleanup
