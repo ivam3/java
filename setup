@@ -70,7 +70,7 @@ CONF
 }
 
 get_apksigner() {
-	printf "$G(_>)─➤$W Installing apksigner."
+	printf "$G(_>)─➤$W Installing apksigner.\n"
 	if [[ "$SOv" -gt 8 ]]; then
 		apksigner="apksigner"
 	else
@@ -79,16 +79,16 @@ get_apksigner() {
 	command -v apksigner >/dev/null || yes|apt install $apksigner
 }
 get_signapk() {
-	printf "$G(_>)─➤$W Installing signapk"
+	printf "$G(_>)─➤$W Installing signapk\n"
 	for i in signapk.jar publickey.x509.pem publickey.pk8;do
 		mv openjdk/$i $PREFIX/share/jdk8
 	done
 }
 get_keytool() {
-	printf "$G(_>)─➤$W Installing keytool"
+	printf "$G(_>)─➤$W Installing keytool\n"
 }
 get_apktool() {
-	printf "$G(_>)─➤$W Installing apktool"
+	printf "$G(_>)─➤$W Installing apktool\n"
 	if [ ! -d $PREFIX/var/spool/ ]; then
 		mkdir -p $PREFIX/var/spool/
 	fi
@@ -96,13 +96,13 @@ get_apktool() {
         cp openjdk/lib/libc++_shared.so $PREFIX/share/glib/
 }
 apktool_fix() {
-	printf "$G(_>)─➤$W Remap apktool unicode filenames."
+	printf "$G(_>)─➤$W Remap apktool unicode filenames.\n"
 	git clone https://github.com/warren-bank/node-remap-apktool-unicode-filenames >/dev/null 2>&1
 	if [ -d warren-bank ]; then
 		cd node-remap-apktool-unicode-filenames
 		npm install --global @warren-bank/node-remap-apktool-unicode-filenames
 	else
-		printf "$R\n(_>)─➤$W ERR-rauf\n"
+		printf "$R(_>)─➤$W ERR-rauf\n"
 	fi
 }
 banner
@@ -139,13 +139,13 @@ CXC() {
 	for i in dirmngr gnupg-curl;do
 		yes|apt install dirmngr >/dev/null 2>&1
 	done
-	printf "$G(_>)─➤$W Adding PGP key"
+	printf "$G(_>)─➤$W Adding PGP key\n"
 	apt-key adv --keyserver pool.sks-keyservers.net --recv 9D6D488416B493F0 >/dev/null 2>&1
-	printf "$G(_>)─➤$W Adding repository"
+	printf "$G(_>)─➤$W Adding repository\n"
 	mkdir -p $PREFIX/etc/apt/sources.list.d && echo "deb https://termux.xeffyr.ml/ extra main x11" > $PREFIX/etc/apt/sources.list.d/list.list
-	printf "$G(_>)─➤$W Updating Termux"
+	printf "$G(_>)─➤$W Updating Termux\n"
 	apt update
-	printf "$G(_>)─➤$W Installing JAVA 9"
+	printf "$G(_>)─➤$W Installing JAVA 9\n"
 	yes|apt install openjdk-9-jdk-headless
 }
 elif [[ $1 = apktool ]]; then
