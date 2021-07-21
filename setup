@@ -98,7 +98,7 @@ get_apktool() {
 apktool_fix() {
 	printf "$G(_>)─➤$W Remap apktool unicode filenames.\n"
 	git clone https://github.com/warren-bank/node-remap-apktool-unicode-filenames >/dev/null 2>&1
-	if [ -d warren-bank ]; then
+	if [ -d node-remap-apktool-unicode-filenames ]; then
 		cd node-remap-apktool-unicode-filenames
 		npm install --global @warren-bank/node-remap-apktool-unicode-filenames
 	else
