@@ -24,6 +24,8 @@ dependencies() {
 	command -v npm >/dev/null || yes|apt install perl nodejs
 	command -v wget >/dev/null || yes|apt install wget
 	command -v git >/dev/null || yes|apt install git
+	command -v tar >/dev/null || yes|apt install tar
+	command -v aapt >/dev/null || yes|apt install aapt
 	command -v proot >/dev/null || yes|apt install proot
 }
 		
@@ -69,12 +71,15 @@ export LIB_DIR="\$PREFIX/share/glib"
 export LD_LIBRARY_PATH="\$LIB_DIR"
 exec proot -0 \$JAVA_HOME/bin/keytool "\$@"
 CONF
+for i in java keytool signapk keytool;do
+	chmod +x $PREFIX/bin/$i
+done
 }
 
 get_apksigner() {
 	printf "$G(_>)─➤$W Installing apksigner.\n"
-	SOv=$(termux-info |awk '$1 < 11 {print $1}' |tail -n 1 |awk -F "." '{print $1}')
-	if [[ "$SOv" -gt 8 ]]; then
+	SOv=$(termux-info|cut -c 1-2|grep "[0-9][0-9]")
+	if [[ "$SOv" -gt 7 ]]; then
 		apksigner="apksigner"
 	else
 		apksigner="apksigner-old"
