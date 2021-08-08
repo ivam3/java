@@ -84,7 +84,7 @@ get_apksigner() {
 	else
 		apksigner="apksigner-old"
 	fi
-	command -v apksigner >/dev/null || yes|apt install $apksigner >/dev/null 2>&1
+	command -v apksigner >/dev/null || yes|apt install $apksigner
 }
 get_signapk() {
 	printf "$G(_>)─➤$W Installing signapk\n"
