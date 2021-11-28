@@ -10,7 +10,7 @@ R='\033[1;31m'
 G='\033[1;32m'
 Goke='\033[92m'
 W='\033[0m'
-apktoolV="2.5.0"
+apktoolV="2.6.0"
 javarepo="https://github.com/ivam3/java/releases/download"
 apktool_releases="https://bitbucket.org/iBotPeaches/apktool/downloads"
 
@@ -25,7 +25,7 @@ dependencies() {
 	command -v wget >/dev/null || yes|apt install wget
 	command -v git >/dev/null || yes|apt install git
 	command -v tar >/dev/null || yes|apt install tar
-	command -v aapt >/dev/null || yes|apt install aapt
+	#command -v aapt >/dev/null || yes|apt install aapt
 	command -v proot >/dev/null || yes|apt install proot
 }
 		
@@ -159,7 +159,7 @@ CXC() {
 elif [[ $1 = apktool ]]; then
 	apktoolV=$(apktool --version)
 	printf "$Y(_>)─➤$W actual apktool version:$Y $apktoolV\n$G(_>)─➤$W Choose a version to install\n"
-	for i in 2.5.0 2.4.1 2.4.0 2.3.4 2.3.3 2.3.2 2.3.1 2.3.0 2.2.4 2.2.3 2.2.2 2.2.1 2.2.0 2.1.1 2.1.0 2.0.3 2.0.2 2.0.1 2.0.0;do
+	for i in 2.6.0 2.5.0 2.4.1 2.4.0 2.3.4 2.3.3 2.3.2 2.3.1 2.3.0 2.2.4 2.2.3 2.2.2 2.2.1 2.2.0 2.1.1 2.1.0 2.0.3 2.0.2 2.0.1 2.0.0;do
 		printf "$G ╰───➤$W $i\n"
 	done
 	while read -p "(_>)─➤ " apktoolV && [ -z $apktoolV ];do continue; done
