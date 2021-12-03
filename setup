@@ -44,15 +44,15 @@ unset LD_PRELOAD
 export JAVA_HOME="$PREFIX/share/jdk8"
 export LIB_DIR="\$PREFIX/share/glib"
 export LD_LIBRARY_PATH="\$LIB_DIR"
+export _JAVA_OPTIONS="-Xmx1024m"
 exec proot -0 \$JAVA_HOME/bin/java "\$@"
 CONF
 cat <<- CONF > $PREFIX/bin/apktool
 #!/usr/bin/bash
-export JAVA_HOME="\$PREFIX/share/jdk8"
-export LIB_DIR="\$PREFIX/share/glib"
-export LD_LIBRARY_PATH=\$LIB_DIR:\$LD_LIBRARY_PATH
-umask 000
-exec \$PREFIX/bin/java -Xmx1024m -Djava.io.tmpdir=\$JAVA_HOME -jar \$PREFIX/var/spool/apktool.jar -p \$JAVA_HOME "\$@"
+export JAVA_HOME="$PREFIX/share/jdk8"
+export LIB_DIR="$PREFIX/share/glib"
+[[ -d $PREFIX/opt/openjdk ]] || export LD_LIBRARY_PATH=\$LIB_DIR:\$LD_LIBRARY_PATH;umask 000
+exec $PREFIX/bin/java -Xmx1024m -Djava.io.tmpdir=\$JAVA_HOME -jar $PREFIX/var/spool/apktool.jar -p \$JAVA_HOME "\$@"
 CONF
 cat <<- CONF > $PREFIX/bin/signapk
 #!/usr/bin/bash
