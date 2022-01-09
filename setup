@@ -25,7 +25,7 @@ dependencies() {
 	command -v wget >/dev/null || yes|apt install wget
 	command -v git >/dev/null || yes|apt install git
 	command -v tar >/dev/null || yes|apt install tar
-	#command -v aapt >/dev/null || yes|apt install aapt
+	command -v aapt >/dev/null || yes|apt install aapt
 	command -v proot >/dev/null || yes|apt install proot
 }
 		
@@ -38,7 +38,7 @@ get_tar() {
 }
 
 get_binaries() {
-cat <<- CONF > $PREFIX/bin/java
+cat <<- CONF > $PREFIX/bin/java8
 #!/usr/bin/bash
 unset LD_PRELOAD
 export JAVA_HOME="$PREFIX/share/jdk8"
@@ -164,7 +164,7 @@ elif [[ $1 = apktool ]]; then
 	done
 	while read -p "(_>)─➤ " apktoolV && [ -z $apktoolV ];do continue; done
 	if [[ ! -d $PREFIX/var/spool ]]; then
-		mkdir $PREFIX/var/spool/apktool.jar
+		mkdir $PREFIX/var/spool/
 	fi
 	wget -q $apktool_releases/apktool_$apktoolV.jar -O $PREFIX/var/spool/apktool.jar
 else
