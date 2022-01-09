@@ -167,6 +167,8 @@ elif [[ $1 = apktool ]]; then
 		mkdir $PREFIX/var/spool/
 	fi
 	wget -q $apktool_releases/apktool_$apktoolV.jar -O $PREFIX/var/spool/apktool.jar
+	printf "#!/usr/bin/bash\nexec java $PREFIX/var/spool/apktool.jar $@" > $PREFIX/bin/apktool
+	chmod 755 $PREFIX/bin/apktool
 else
 	main
 fi
