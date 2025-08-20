@@ -199,14 +199,15 @@ class Msf::Payload::Apk
 
 		###############################################################################################
     print_status "Decompiling original APK without decode resources..\n"
-    run_cmd(['apktool', 'd', '-r', '-f', "#{tempdir}/original.apk", '-o', "#{tempdir}/original"])
-		print_status "Decompiling original APK decoding resources..\n"
-		run_cmd(['apktool', 'd', '-f', "#{tempdir}/original.apk", '-o', "#{tempdir}/tmp_original"])
-		print_status "Recovering manifest file..\n"
-		run_cmd(["cat #{tempdir}/tmp_original/AndroidManifest.xml > #{tempdir}/original/AndroidManifest.xml"])
-		run_cmd(['rm', '-rf', "#{tempdir}/tmp_original"])
-    print_status "Decompiling payload APK..\n"
-    run_cmd(['apktool', 'd', "#{tempdir}/payload.apk", '-o', "#{tempdir}/payload"])
+    run_cmd(["apktool", "d", "-f", "-r", "-o", "#{temdir}/original", "#{tempdir}/original.apk"])
+    print_status("Ignoring the resource decompilation..")
+    run_cmd(["apktool", "d", "-f", "-o", "#{tempdir}/original_tmp", "#{tempdir}/original.apk"])
+    print_status "Recovering manifest file..\n"
+    FileUtils.rm_rf('original/AndroidManifest.xml')
+    FileUtils.cp Dir.glob('original_tmp/AndroidManifest.xml'), 'original/'
+    FileUtils.rm_rf('original_tmp')
+    print_status("Decompiling payload APK..")
+    run_cmd(['apktool', 'd', '-f', '-o', "#{tempdir}/payload", "#{tempdir}/payload.apk"])
 		###############################################################################################
 
     amanifest = parse_manifest("#{tempdir}/original/AndroidManifest.xml")
